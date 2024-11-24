@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elements: The Periodic Table</title>
+    <!-- Keep existing navigation styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        
+          .nav-bar {
+            background-color: #0f4173;
+            padding: 16px 21px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-title {
+            color: #f0f0f0;
+            font-weight: bolder;
+            font-size: 16px;
+            text-decoration: none;
+           -webkit-font-smoothing: antialiased; /* Standard font smoothing */
+    text-rendering: optimizeLegibility; /* Smoother rendering in modern browsers */
+    text-shadow: 0 0 0.5px rgba(0,0,0,0.3); /* Very subtle shadow for added smoothness */
+  position: relative; /* Position relative to its normal position */
+    top: -1.2px;  /* Move the text a little higher (negative value moves it up) */
+    left: 26px; /* Move the text a little to the left (negative value moves it left) */
+    transform: translateY(0) translateX(0); /* Optional fine-tuning using transform */
+     letter-spacing: -0.9px; 
+
+     
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        .content-wrapper {
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .timer {
+            text-align: right;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .question-container {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .option {
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .option.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .option.correct {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .option.incorrect {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 2rem;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--secondary-color);
+        }
+
+        .heavyFont {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+ <div class="nav-bar">
+        <a href="index.html" class="nav-title">‎ ‎ ‎ ‎ ‎ ‎ ‎‎‎‎‎‎‎ ACASĂ</a>
+    </div>
+       
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="header">
+                <h1 id="quiz-chimie" class="animate__animated animate__fadeIn">Quiz Chimie</h1>
+                <div class="timer">
+                    ⏱ <span id="time">05:00</span>
+                </div>
+            </div>
+
+            <div id="quiz">
+                <div class="question-container" question="1">
+                    <div class="question">
+                        1. Care este simbolul chimic pentru Sodiu?
+                    </div>
+                    <div class="options">
+                        <div class="option" data-correct="false">So</div>
+                        <div class="option" data-correct="true">Na</div>
+                        <div class="option" data-correct="false">Sd</div>
+                        <div class="option" data-correct="false">S</div>
+                    </div>
+                </div>
+
+                <div class="question-container" question="2">
+                    <div class="question">
+                        2. Ce este un atom?
+                    </div>
+                    <div class="options">
+                        <div class="option" data-correct="false">O moleculă de apă</div>
+                        <div class="option" data-correct="true">Cea mai mică particulă a unui element chimic</div>
+                        <div class="option" data-correct="false">Un compus chimic</div>
+                        <div class="option" data-correct="false">O reacție chimică</div>
+                    </div>
+                </div>
+
+                <div class="question-container" question="3">
+                    <div class="question">
+                        3. Formula chimică a apei este:
+                    </div>
+                    <div class="options">
+                        <div class="option" data-correct="false">CO₂</div>
+                        <div class="option" data-correct="true">H₂O</div>
+                        <div class="option" data-correct="false">O₂</div>
+                        <div class="option" data-correct="false">H₂O₂</div>
+                    </div>
+                </div>
+
+                <div class="question-container" question="4">
+                    <div class="question">
+                        4. pH-ul reprezintă:
+                    </div>
+                    <div class="options">
+                        <div class="option" data-correct="false">O unitate de măsură pentru temperatură</div>
+                        <div class="option" data-correct="true">O scară care măsoară aciditatea sau bazicitatea</div>
+                        <div class="option" data-correct="false">O metodă de separare</div>
+                        <div class="option" data-correct="false">Un element chimic</div>
+                    </div>
+                </div>
+
+                <div class="question-container" question="5">
+                    <div class="question">
+                        5. Numărul atomic al Carbonului este:
+                    </div>
+                    <div class="options">
+                        <div class="option" data-correct="false">8</div>
+                        <div class="option" data-correct="true">6</div>
+                        <div class="option" data-correct="false">12</div>
+                        <div class="option" data-correct="false">4</div>
+                    </div>
+                </div>
+
+                <button id="check-answers">Verifică Răspunsurile</button>
+            </div>
+
+            <div id="result" class="result">
+                <div class="stats">
+                    <div class="stat-item">
+                        <div id="score-value" class="stat-value">0</div>
+                        <div class="stat-label">Nota</div>
+                    </div>
+                    <div class="stat-item">
+                        <div id="correct-answers" class="stat-value">0/5</div>
+                        <div class="stat-label">Răspunsuri Corecte</div>
+                    </div>
+                    <div class="stat-item">
+                        <div id="time-taken" class="stat-value">00:00</div>
+                        <div class="stat-label">Timp</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let timeLeft = 300; // 5 minutes in seconds
+            let timer = null;
+            let quizStarted = false;
+            const options = document.querySelectorAll('.option');
+            const checkButton = document.getElementById('check-answers');
+            const resultDiv = document.getElementById('result');
+            const timeDisplay = document.getElementById('time');
+            let startTime;
+
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timeDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                if (timeLeft === 0) {
+                    clearInterval(timer);
+                    checkAnswers();
+                } else {
+                    timeLeft--;
+                }
+            }
+
+            function startQuiz() {
+                if (!quizStarted) {
+                    quizStarted = true;
+                    startTime = Date.now();
+                    timer = setInterval(updateTimer, 1000);
+                }
+            }
+
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    startQuiz();
+                    // Remove selected class from siblings
+                    const siblings = option.parentElement.children;
+                    for (let sibling of siblings) {
+                        sibling.classList.remove('selected');
+                    }
+                    option.classList.add('selected');
+                });
+            });
+
+            function calculateScore(correct) {
+                return Math.round((correct / 5) * 10);
+            }
+
+            function getTimeTaken() {
+                const endTime = Date.now();
+                const timeTaken = Math.floor((endTime - startTime) / 1000);
+                const minutes = Math.floor(timeTaken / 60);
+                const seconds = timeTaken % 60;
+                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+
+            function checkAnswers() {
+                clearInterval(timer);
+                let correctCount = 0;
+
+                options.forEach(option => {
+                    option.style.pointerEvents = 'none';
+                    if (option.classList.contains('selected')) {
+                        if (option.getAttribute('data-correct') === 'true') {
+                            option.classList.add('correct');
+                            correctCount++;
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    }
+                    if (option.getAttribute('data-correct') === 'true') {
+                        option.classList.add('correct');
+                    }
+                });
+
+                checkButton.style.display = 'none';
+                resultDiv.style.display = 'block';
+                
+                document.getElementById('score-value').textContent = calculateScore(correctCount);
+                document.getElementById('correct-answers').textContent = `${correctCount}/5`;
+                document.getElementById('time-taken').textContent = getTimeTaken();
+            }
+
+            checkButton.addEventListener('click', checkAnswers);
+        });
+    </script>
+</body>
+</html>
